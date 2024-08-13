@@ -27,6 +27,7 @@ export default function BusinessListByCategory() {
 
   //Use to get businessList by category
   const getBusinessList = async () => {
+    setBusinessList([]);
     setLoading(true)
 
     const q = query(collection(db, 'BusinessList'), where("category", '==', category));
@@ -34,7 +35,7 @@ export default function BusinessListByCategory() {
 
     querySnapshot.forEach((doc) => {
       console.log(doc.data())
-      setBusinessList(prev => [...prev, doc.data()]);
+      setBusinessList(prev => [...prev, {id:doc?.id, ...doc.data()}]);
     })
     setLoading(false)
   }
