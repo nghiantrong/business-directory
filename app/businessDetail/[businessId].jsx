@@ -7,6 +7,7 @@ import { Colors } from '../../constants/Colors';
 import Intro from '../../components/BusinessDetail/Intro';
 import ActionButton from '../../components/BusinessDetail/ActionButton';
 import About from '../../components/BusinessDetail/About';
+import Reviews from '../../components/BusinessDetail/Reviews';
 
 export default function BusinessDetail() {
 
@@ -28,7 +29,7 @@ export default function BusinessDetail() {
 
         if (docSnap.exists()) {
             console.log("Document data: ", docSnap.data());
-            setBusiness(docSnap.data());
+            setBusiness({id:docSnap.id,...docSnap.data()});
             setLoading(false);
         } else {
             console.log("No such document!");
@@ -36,7 +37,7 @@ export default function BusinessDetail() {
     }
 
     return (
-        <View>
+        <ScrollView>
             {loading ?
                 <ActivityIndicator
                     style={{
@@ -52,8 +53,10 @@ export default function BusinessDetail() {
                     <ActionButton business={business}/>
                     {/* About Section */}
                     <About business={business}/>
+                    {/* About Section */}
+                    <Reviews business={business} />
                 </View>
             }
-        </View>
+        </ScrollView>
     )
 }
